@@ -1,0 +1,19 @@
+%text {
+    width: 70%;
+    overflow-wrap: break-word;
+}
+
+.text-explanation {
+    @extend %text;
+
+    font-size: 18px;
+    line-height: 1.5em;
+}
+
+.text-json {
+    @extend %text;
+    @include set-background(lighten($blue, 60%));
+
+    font-size: 15px;
+    border-radius: 20px;
+}

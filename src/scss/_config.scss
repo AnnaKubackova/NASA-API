@@ -1,0 +1,38 @@
+$blue: #011434;
+$white: #f4f4f4;
+
+// Set text color based on background
+@function set-text-color($color) {
+    @if(lightness($color) > 50) {
+        @return black;
+    } @else {
+        @return $white;
+    }
+}
+
+// Set background and text color
+@mixin set-background($color) {
+    background-color: $color;
+    color: set-text-color($color);
+}
+
+// Margin and padding classes
+$spaceamounts: (1,2,3);
+
+@each $space in $spaceamounts {
+    .m-#{$space} {
+        margin: #{$space}rem;
+    }
+
+    .my-#{$space} {
+        margin: #{$space}rem 0;
+    }
+
+    .p-#{$space} {
+        padding: #{$space}rem;
+    }
+
+    .py-#{$space} {
+        padding: #{$space}rem 0;
+    }
+}
