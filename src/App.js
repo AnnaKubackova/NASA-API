@@ -1,34 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import HttpClient from './HttpClient';
+import Fetch from './Components/Fetch/Fetch';
 import './css/style.css';
 import Form from './Components/Form/Form';
 
-const App = () => {
-  const [apod, setApod] = useState({});
+const nasaEndpoint = process.env.REACT_APP_NASA_ENDPOINT;
 
-  useEffect(() => {
-    HttpClient.getApod().then(apodData => {
-      setApod(apodData.data);
-    });
-  }, []);
+const App = () => {
 
   return (
     <main>
       <Form />
       <h1 className="my-2">NASA API</h1>
       <h2>Astronomy Picture of the Day</h2>
-      {apod && (
-        <article>
-          <img src={apod.url} alt="APOD" className="my-1" />
-          <header className="my-1">
-            {apod.title} - <i>{apod.date}</i>
-          </header>
-          <p className="text-explanation">{apod.explanation}</p>
-          <p className="text-json my-2 p-1">
-            {JSON.stringify(apod, null, 2)}
-          </p>
-        </article>
-      )}
+      <Fetch url={`${nasaEndpoint}planetary/apod`}/>
     </main>
   );
 };
