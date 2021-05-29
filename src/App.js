@@ -18,7 +18,7 @@ const App = () => {
       {apod && (
         <article>
           <img src={apod.url} alt="APOD" className="my-1" />
-          <header className="my-1">
+          <header className="my-1"> 
             {apod.title} - <i>{apod.date}</i>
           </header>
           <p className="text-explanation">{apod.explanation}</p>
