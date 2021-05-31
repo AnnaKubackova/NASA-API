@@ -1,16 +1,10 @@
 const gulp = require('gulp');
-const { watch,series } = require('gulp');
 const concat = require('gulp-concat');
 const eslint = require('gulp-eslint');
 const uglify = require('gulp-uglify');
-
-// const react = require('gulp-react');
 const babel = require('gulp-babel');
-
 const sass = require('gulp-sass');
 const htmlreplace = require('gulp-html-replace');
-
-sass.compiler = require('node-sass');
 
 const path = {
     HTML: './public/index.html',
@@ -22,18 +16,27 @@ const path = {
 }
 
 // Copy HTML
-gulp.task('copy', function() {
-    return gulp.src('./public/index.html')
+gulp.task('html', function() {
+    return gulp.src(path.HTML)
         .pipe(htmlreplace({
-            'css': 'styles.min.css',
-            'js': 'js/bundle.min.js'
+            'css': './build/custom.css',
+            'js': './build/custom.js'
         }))
-        .pipe(gulp.dest('./dist/'));
+        .pipe(gulp.dest(path.DEST));
 });
 
 // Build the JS files
-gulp.task('build', function () {
+gulp.task('javascript', function () {
     return gulp.src(path.JS)
+        .pipe(eslint({
+            "rules": {
+                "semi": ["error", "always"],
+                "quotes": ["error", "single"],
+                "no-console": "error"
+            },
+            "parseOptions": { "ecmeVersion": "2018" }
+        }))
+        .pipe(eslint.format())
         .pipe(babel({
             presets: ['@babel/env']
         }))
@@ -50,9 +53,4 @@ gulp.task('sass', function () {
         .pipe(gulp.dest(path.DEST_BUILD));
 });
 
-// Update links
-gulp.task('replaceHTML', function(){
-    return gulp.src(path.HTML)
- });
-
-exports.production = gulp.series('replaceHTML', 'build', 'sass', 'copy');
+exports.production = gulp.series('html', 'javascript', 'sass');
