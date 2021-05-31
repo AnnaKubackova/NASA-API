@@ -11,8 +11,6 @@ function Form() {
     const handlesubmit = (event) => {
         event.preventDefault();
         setUsername(inputValue);
-        console.log(username);
-        console.log("HI event - preveneted default")
     }
 
     return(

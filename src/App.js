@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react';
 import Fetch from './Components/Fetch/Fetch';
 import './css/style.css';
 import Form from './Components/Form/Form';
@@ -12,7 +11,7 @@ const App = () => {
       <Form />
       <h1 className="my-2">NASA API</h1>
       <h2>Astronomy Picture of the Day</h2>
-      <Fetch url={`${nasaEndpoint}planetary/apod`}/>
+      <Fetch url={`${nasaEndpoint}planetary/apod?api_key=DEMO_KEY`}/>
     </main>
   );
 };
